@@ -1257,7 +1257,8 @@ function initMap(){
   if(!window.L){ $("#map").innerHTML = '<p class="muted" style="padding:16px">De kaart kon niet laden. Gebruik de lijst hieronder.</p>'; return; }
   if(map) return;
   map = L.map("map", {zoomControl:true, minZoom:14, maxZoom:19, maxBounds:[[50.832, 4.326], [50.863, 4.381]]}).setView([50.8475, 4.3528], 16);
-  L.imageOverlay(MAP_IMG, [[50.83716688, 4.33410645], [50.85797671, 4.37255859]], {attribution:"&copy; OpenStreetMap-bijdragers"}).addTo(map);
+  map.createPane("fallback"); map.getPane("fallback").style.zIndex = 150;
+  L.imageOverlay(MAP_IMG, [[50.83716688, 4.33410645], [50.85797671, 4.37255859]], {pane:"fallback", attribution:"&copy; OpenStreetMap-bijdragers"}).addTo(map);
   L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {maxZoom:19, attribution:"&copy; OpenStreetMap"}).addTo(map);
   $("#map").style.background = "#f2efe9";
   L.marker([50.8467, 4.3525], {icon:L.divIcon({className:"", html:'<div style="font-size:30px">&#127876;</div>', iconSize:[30,30], iconAnchor:[15,28]})}).addTo(map).bindPopup("Grote Markt");
