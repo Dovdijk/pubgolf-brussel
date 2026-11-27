@@ -68,6 +68,10 @@ create policy "open submissions" on submissions for all using (true) with check 
 alter table settings enable row level security;
 create policy "open settings" on settings for all using (true) with check (true);
 
+-- Toegang voor de website (anon) tot de tabellen
+grant usage on schema public to anon, authenticated;
+grant select, insert, update, delete on teams, bars, missions, submissions, settings to anon, authenticated;
+
 -- Live updates
 alter publication supabase_realtime add table teams, bars, missions, submissions, settings;
 
