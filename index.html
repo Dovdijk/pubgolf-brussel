@@ -1314,7 +1314,7 @@ function openTeamPicker(){
         if(!name){ err.textContent = "Geef je team een naam."; err.hidden = false; return; }
         if(S.teams.some(t => t.name.toLowerCase() === name.toLowerCase())){ err.textContent = "Die naam is al bezet."; err.hidden = false; return; }
         const row = {id:uid(), name, color, players:+el.querySelector("#tPlayers").value, bonus:0, created_at:new Date().toISOString()};
-        try { await db.insert("teams", row); setTeam(row.id); closeSheet(); toast("Team " + name + " staat aan de start!"); refresh(); }
+        try { await db.insert("teams", row); if(!S.teams.some(t => t.id === row.id)) S.teams.push(row); setTeam(row.id); closeSheet(); toast("Team " + name + " staat aan de start!"); refresh(); }
         catch(e){ console.error(e); err.textContent = "Opslaan lukte niet. Probeer het opnieuw."; err.hidden = false; }
       };
   });
